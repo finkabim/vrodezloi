@@ -1,0 +1,19 @@
+import telegram
+
+# Set up the bot and API token
+bot = telegram.Bot(token='YOUR_API_TOKEN_HERE')
+
+# Define the message handler to handle messages containing codes
+def handle_code_message(update, context):
+    message = update.message
+    code = message.text.strip()
+    # Do something with the code
+    print(f"Received code: {code}")
+
+# Set up the message handler
+message_handler = telegram.ext.MessageHandler(telegram.ext.Filters.regex(r'^\d{6}$'), handle_code_message)
+dispatcher = bot.dispatcher
+dispatcher.add_handler(message_handler)
+
+# Start the bot
+bot.polling()
